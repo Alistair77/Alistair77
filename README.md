@@ -12,6 +12,7 @@
 **AI Engineer · Builder · Lifelong Learner**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Alistair77-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alistair77)
+[![Instagram](https://img.shields.io/badge/Instagram-@r.alistair7-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/r.alistair7)
 
 <br>
 
