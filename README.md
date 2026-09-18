@@ -12,6 +12,7 @@
 **AI Engineer · Builder · Lifelong Learner**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Alistair77-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alistair77)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-alistair77-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alistair77/)
 [![Portfolio](https://img.shields.io/badge/Portfolio-alistair77.github.io-4F46E5?style=for-the-badge&logo=githubpages&logoColor=white)](https://alistair77.github.io/professional-portfolio-website/)
 [![Instagram](https://img.shields.io/badge/Instagram-@r.alistair7-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/r.alistair7)
 

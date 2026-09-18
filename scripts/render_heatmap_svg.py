@@ -10,6 +10,7 @@ Run by .github/workflows/update-profile-art.yml after fetch_contributions.py.
 """
 import datetime
 import json
+import math
 import os
 
 HERE = os.path.dirname(__file__)
@@ -42,21 +43,20 @@ ROW_T = 0.045   # per-row delay contribution (top -> bottom cascade)
 CELL_DUR = 0.42
 
 
-def level_for(count):
-    if count == 0:
+def level_for(count, mx):
+    """Scale a day's color to the account's OWN busiest day (mx) instead of the
+    fixed 50+/day GitHub thresholds, so a modest-but-steady streak still reads as
+    "hot" rather than bottoming out at the palest green.
+    ponytail: max-relative buckets; swap for a percentile if one outlier day ever
+    flattens all the rest to level 1."""
+    if count <= 0:
         return 0
-    if count <= 5:
+    if mx <= 0:
         return 1
-    if count <= 15:
-        return 2
-    if count <= 30:
-        return 3
-    if count <= 50:
-        return 4
-    return 5
+    return min(5, max(1, math.ceil(count / mx * 5)))
 
 
-def build_grid(days):
+def build_grid(days, mx):
     first = datetime.date.fromisoformat(days[0]["date"])
     lead_pad = (first.weekday() + 1) % 7  # sunday=0
     grid = []
@@ -66,7 +66,7 @@ def build_grid(days):
         weekday = (date.weekday() + 1) % 7
         while len(col) < weekday:
             col.append(None)
-        col.append((d["date"], d["count"], level_for(d["count"])))
+        col.append((d["date"], d["count"], level_for(d["count"], mx)))
         if len(col) == 7:
             grid.append(col)
             col = []
@@ -79,7 +79,8 @@ def build_grid(days):
 
 def render(data):
     days = data["days"]
-    grid = build_grid(days)
+    mx = max((d["count"] for d in days), default=0)
+    grid = build_grid(days, mx)
     n_cols = len(grid)
     art_w = n_cols * STEP
     art_h = 7 * STEP
@@ -192,7 +193,20 @@ def render(data):
     return "".join(parts)
 
 
+def _selfcheck():
+    # adaptive scaling: 0 stays empty, the busiest day maxes out, a mid day lands mid.
+    assert level_for(0, 13) == 0
+    assert level_for(13, 13) == 5
+    assert level_for(1, 13) == 1
+    assert level_for(7, 13) == 3
+    assert level_for(5, 0) == 1  # degenerate: no max -> faintest visible
+    print("selfcheck ok")
+
+
 if __name__ == "__main__":
+    if os.environ.get("SELFCHECK"):
+        _selfcheck()
+        raise SystemExit
     data = json.load(open(IN_PATH))
     svg = render(data)
     with open(OUT_PATH, "w") as f:
