@@ -15,6 +15,7 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-alistair77-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alistair77/)
 [![Portfolio](https://img.shields.io/badge/Portfolio-alistair77.github.io-4F46E5?style=for-the-badge&logo=githubpages&logoColor=white)](https://alistair77.github.io/professional-portfolio-website/)
 [![Instagram](https://img.shields.io/badge/Instagram-@r.alistair7-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/r.alistair7)
+[![YouTube](https://img.shields.io/badge/YouTube-@ar7studio359-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@ar7studio359)
 
 <br>
 
