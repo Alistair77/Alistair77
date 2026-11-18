@@ -67,15 +67,54 @@ def esc(s):
     return html.escape(s)
 
 
-def rise(inner, i):
-    """fade + slight upward slide, staggered by row index; freezes visible."""
+# ---------------------------------------------------------------------------
+#  AGENT-TRACE LAYOUT -- the card plays out like an AI agent answering
+#  "who is <you>?": your question bubble, a "thinking" beat, a retrieval tool
+#  call that comes back with docs, then the answer streams in -- role lines,
+#  the stack as colour-coded chips, highlights -- and a run summary footer.
+#  It plays once and holds (the snake keeps going around it).
+#  Everything is still driven by ROWS above.
+# ---------------------------------------------------------------------------
+CHIP_COLORS = ["#d2a8ff", "#79c0ff", "#56d4dd", "#ffa657", "#7ee787", "#ff7b72"]
+QUESTION = f"who is {HOST}?"
+
+
+def split_rows(rows):
+    head, stack, highs, sec = [], [], [], None
+    for r in rows:
+        if r[0] == "sec":
+            sec = r[1].lower()
+        elif r[0] == "kv":
+            (stack if sec else head).append((r[1], r[2]))
+        elif r[0] == "bul":
+            highs.append(r[1])
+    return head, stack, highs
+
+
+def show(inner, at, slide=4):
+    """fade/slide in at `at` seconds, then hold."""
     if STATIC:
         return f"<g>{inner}</g>"
-    delay = 0.15 + i * 0.06
-    return (f'<g opacity="0" transform="translate(0,5)">{inner}'
-            f'<animate attributeName="opacity" from="0" to="1" begin="{delay:.2f}s" dur="0.4s" fill="freeze"/>'
-            f'<animateTransform attributeName="transform" type="translate" from="0 5" to="0 0" '
-            f'begin="{delay:.2f}s" dur="0.4s" fill="freeze" calcMode="spline" keySplines="0.2 0.8 0.2 1"/></g>')
+    return (f'<g opacity="0" transform="translate(0,{slide})">{inner}'
+            f'<animate attributeName="opacity" from="0" to="1" begin="{at:.2f}s" dur="0.3s" fill="freeze"/>'
+            f'<animateTransform attributeName="transform" type="translate" from="0 {slide}" to="0 0" '
+            f'begin="{at:.2f}s" dur="0.3s" fill="freeze" calcMode="spline" keySplines="0.2 0.8 0.2 1"/></g>')
+
+
+_clip_n = [0]
+
+
+def typed(inner, x, y_top, h, width, at, dur):
+    """reveal left -> right like streamed tokens."""
+    if STATIC:
+        return inner
+    _clip_n[0] += 1
+    cid = f"ty{_clip_n[0]}"
+    return (f'<clipPath id="{cid}"><rect x="{x}" y="{y_top}" height="{h}" width="0">'
+            f'<animate attributeName="width" from="0" to="{width}" begin="{at:.2f}s" dur="{dur:.2f}s" '
+            f'fill="freeze" calcMode="discrete" keyTimes="{";".join(f"{i / 12:.3f}" for i in range(12))}" '
+            f'values="{";".join(f"{width * i / 11:.1f}" for i in range(12))}"/></rect></clipPath>'
+            f'<g clip-path="url(#{cid})">{inner}</g>')
 
 
 parts = [
@@ -90,41 +129,99 @@ parts = [
 ]
 for i, dotcol in enumerate(["#ff5f56", "#ffbd2e", "#27c93f"]):
     parts.append(f'<circle cx="{PAD + i*16}" cy="{TITLEBAR_H/2}" r="5" fill="{dotcol}"/>')
-parts.append(f'<text x="{W/2}" y="{TITLEBAR_H/2 + 4}" fill="{MUTED}" font-size="12" '
-             f'text-anchor="middle">{esc(HOST)}@github: ~$ neofetch</text>')
+parts.append(f'<text x="{W/2 - 30}" y="{TITLEBAR_H/2 + 4}" fill="{MUTED}" font-size="12" '
+             f'text-anchor="middle">{esc(HOST)}@github: ~$ agent --ask</text>')
 
-y = TITLEBAR_H + 30
-for i, row in enumerate(ROWS):
-    kind = row[0]
-    if kind == "gap":
-        y += LINE_H * 0.5
-        continue
-    if kind == "host":
-        host = esc(HOST)
-        rule_x = KEY_X + (len(HOST) + 7) * 8 + 8
-        inner = (f'<text x="{KEY_X}" y="{y:.1f}" font-size="14" font-weight="700">'
-                 f'<tspan fill="{GREEN}">{host}</tspan><tspan fill="{MUTED}">@</tspan>'
-                 f'<tspan fill="{ACCENT}">github</tspan></text>'
-                 f'<line x1="{rule_x}" y1="{y-4:.1f}" x2="{W-PAD}" y2="{y-4:.1f}" '
-                 f'stroke="{FRAME}" stroke-opacity="0.8"/>')
-    elif kind == "sec":
-        title = esc(row[1])
-        inner = (f'<text x="{KEY_X}" y="{y:.1f}" fill="{SECTION}" font-size="12.5" font-weight="700">'
-                 f'&#8212; {title}</text>'
-                 f'<line x1="{KEY_X + 12 + len(row[1])*8}" y1="{y-4:.1f}" x2="{W-PAD}" y2="{y-4:.1f}" '
-                 f'stroke="{FRAME}" stroke-opacity="0.8"/>')
-    elif kind == "kv":
-        key, val = esc(row[1]), esc(row[2])
-        inner = (f'<text x="{KEY_X}" y="{y:.1f}" fill="{KEY}" font-size="12.5" font-weight="700">{key}</text>'
-                 f'<text x="{VAL_X}" y="{y:.1f}" fill="{INK}" font-size="12.5">{val}</text>')
-    elif kind == "bul":
-        txt = esc(row[1])
-        inner = (f'<circle cx="{KEY_X+3}" cy="{y-4:.1f}" r="2.5" fill="{GREEN}"/>'
-                 f'<text x="{KEY_X+14}" y="{y:.1f}" fill="{INK}" font-size="12.5">{txt}</text>')
-    else:
-        continue
-    parts.append(rise(inner, i))
-    y += LINE_H
+head, stack, highs = split_rows(ROWS)
+L, R = 24, W - 24
+t = 0.25
+
+# 1) the question, as a chat bubble on the right
+q = esc(QUESTION)
+qw = len(QUESTION) * 7.6 + 22
+parts.append(show(
+    f'<rect x="{R - qw:.1f}" y="50" width="{qw:.1f}" height="22" rx="11" fill="#1f6feb" fill-opacity=".22" '
+    f'stroke="#388bfd" stroke-opacity=".6"/>'
+    f'<text x="{R - qw / 2:.1f}" y="65" fill="{INK}" font-size="12.5" text-anchor="middle">{q}</text>'
+    f'<text x="{R - qw - 8:.1f}" y="65" fill="{MUTED}" font-size="10" text-anchor="end">you</text>', t))
+t += 0.45
+
+# 2) agent: thinking dots, then a retrieval tool call that returns docs
+y = 92
+parts.append(show(f'<text x="{L}" y="{y}" fill="{GREEN}" font-size="12.5" font-weight="700">&#9670; agent</text>', t))
+if not STATIC:
+    dots = "".join(
+        f'<circle cx="{L + 82 + i * 8}" cy="{y - 4}" r="2.2" fill="{MUTED}">'
+        f'<animate attributeName="opacity" values=".2;1;.2" dur=".6s" begin="{t + i * 0.15:.2f}s" repeatCount="3"/></circle>'
+        for i in range(3))
+    parts.append(f'<g opacity="1">{dots}<set attributeName="opacity" to="0" begin="{t + 1.0:.2f}s"/></g>')
+t += 1.0
+call = f'retrieve("{HOST.lower()}")'
+cw = len(call) * 7.2 + 16
+parts.append(show(
+    f'<rect x="{L + 76}" y="{y - 14}" width="{cw:.0f}" height="19" rx="4" fill="#161b22" stroke="{FRAME}"/>'
+    f'<text x="{L + 84}" y="{y}" fill="#d2a8ff" font-size="11.5">{esc(call)}</text>', t, 0))
+t += 0.45
+parts.append(show(f'<text x="{L + 84 + cw:.0f}" y="{y}" fill="{GREEN}" font-size="11">&#10003; '
+                  f'<tspan fill="{MUTED}">{len(head) + len(stack) + len(highs)} docs &#183; 42ms</tspan></text>', t, 0))
+t += 0.4
+
+# 3) the answer streams in: role lines
+y = 118
+for key, val in head:
+    k, v = esc(key.lower()), esc(val)
+    kw = len(key) * 6.6 + 12
+    line = (f'<rect x="{L}" y="{y - 11}" width="{kw:.0f}" height="15" rx="3" fill="{KEY}" fill-opacity=".14"/>'
+            f'<text x="{L + 6}" y="{y}" fill="{KEY}" font-size="10.5" font-weight="700">{k}</text>'
+            f'<text x="{L + 62}" y="{y}" fill="{INK}" font-size="12.5">{v}</text>')
+    parts.append(typed(line, L - 2, y - 13, 18, R - L + 4, t, 0.45))
+    t += 0.4
+    y += 19
+
+# 4) the stack as colour-coded chips, one row per category
+y += 8
+parts.append(show(f'<line x1="{L}" y1="{y - 6}" x2="{R}" y2="{y - 6}" stroke="{FRAME}" stroke-dasharray="2 3"/>', t, 0))
+y += 8
+for ci, (label, items) in enumerate(stack):
+    col = CHIP_COLORS[ci % len(CHIP_COLORS)]
+    parts.append(show(f'<text x="{L}" y="{y + 1}" fill="{MUTED}" font-size="10.5">{esc(label.lower())}</text>', t, 0))
+    x = L + 72
+    for item in [i.strip() for i in items.split(",")]:
+        w = len(item) * 6.9 + 16
+        parts.append(show(
+            f'<rect x="{x:.0f}" y="{y - 12}" width="{w:.0f}" height="17" rx="8.5" fill="{col}" fill-opacity=".12" '
+            f'stroke="{col}" stroke-opacity=".55"/>'
+            f'<text x="{x + w / 2:.0f}" y="{y}" fill="{col}" font-size="11" text-anchor="middle">{esc(item)}</text>',
+            t, 6))
+        x += w + 6
+        t += 0.08
+    y += 20
+    t += 0.05
+
+# 5) highlights
+y += 6
+for h in highs:
+    line = (f'<text x="{L}" y="{y}" fill="{GREEN}" font-size="12.5">&#8594;</text>'
+            f'<text x="{L + 16}" y="{y}" fill="{INK}" font-size="12.5">{esc(h)}</text>')
+    parts.append(typed(line, L - 2, y - 13, 18, R - L + 4, t, 0.5))
+    t += 0.45
+    y += 18
+
+# 6) run summary + a blinking cursor, like the end of an agent run
+y += 4
+parts.append(show(
+    f'<text x="{L}" y="{y}" fill="{MUTED}" font-size="10.5">'
+    f'<tspan fill="{GREEN}">&#9679;</tspan> done &#183; 3 steps &#183; grounded <tspan fill="{GREEN}">&#10003;</tspan>'
+    f' &#183; confidence</text>'
+    f'<rect x="{L + 280}" y="{y - 8}" width="60" height="6" rx="3" fill="#21262d"/>'
+    f'<rect x="{L + 280}" y="{y - 8}" width="57" height="6" rx="3" fill="{GREEN}"/>'
+    f'<text x="{L + 346}" y="{y}" fill="{GREEN}" font-size="10.5">97%</text>', t, 0))
+if not STATIC:
+    parts.append(f'<rect x="{L + 376}" y="{y - 9}" width="7" height="11" fill="{GREEN}" opacity="0">'
+                 f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.01;.5;.51" dur="1s" '
+                 f'begin="{t + 0.3:.2f}s" repeatCount="indefinite"/></rect>')
+CONTENT_BOTTOM = y
+
 
 # ---------------------------------------------------------------------------
 #  SNAKE -- a snake-game snake that steps cell by cell around the panel (top
@@ -277,4 +374,4 @@ parts.append("</svg>")
 svg = "".join(parts)
 with open(OUT, "w") as f:
     f.write(svg)
-print("wrote", OUT, len(svg), "bytes;", W, "x", H, "content_bottom", round(y))
+print("wrote", OUT, len(svg), "bytes;", W, "x", H, "content_bottom", round(CONTENT_BOTTOM))

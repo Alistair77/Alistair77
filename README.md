@@ -19,6 +19,11 @@
 
 <br>
 
+<!-- the shirt-rip reveal (static art, regenerate with scripts/make_reveal_svg.py) -->
+<img src="./reveal.svg" width="860" alt="Shirt-rip reveal: a dev pulls open their shirt to reveal a glowing crest" />
+
+<br><br>
+
 <!-- animated contribution graph, refreshed daily by the workflow -->
 <img src="./contrib-skyline.svg" width="860" alt="Contribution skyline: every streak is a building, every day a floor" />
 
