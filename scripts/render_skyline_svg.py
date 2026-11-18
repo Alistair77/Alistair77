@@ -104,6 +104,165 @@ def fmt(date_s):
     return datetime.date.fromisoformat(date_s).strftime("%b %-d")
 
 
+# ---------------------------------------------------------------------------
+#  NIGHT-SKY EXTRAS (all original artwork, all toggleable)
+#    * HERO SIGNAL  -- a searchlight behind the city sweeps the sky and throws
+#                      a bat emblem onto a drifting cloud
+#    * SPIDER WEB   -- a web spins itself in the top-left corner, thread by
+#                      thread, then a spider drops down on a silk line and bobs
+#    * FLYER        -- a caped hero streaks across the sky every so often
+# ---------------------------------------------------------------------------
+SHOW_SIGNAL = True
+SHOW_WEB = True
+SHOW_FLYER = True
+FLYER_EVERY = 14.0   # seconds between fly-bys
+FLYER_FIRST = 6.0    # first fly-by, once the city is mostly up
+
+
+def _mirror(half):
+    """close a symmetric outline from its right half (x >= 0, top -> bottom)."""
+    pts = half + [(-x, y) for x, y in reversed(half) if x != 0]
+    return "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + " Z"
+
+
+# an original bat silhouette, roughly 46 x 17 around (0,0)
+BAT = _mirror([(0, -4), (1.6, -8.5), (3, -4.6), (7, -5), (12.5, -8.3), (19, -6.8), (23, 0.5),
+               (19, 0), (16.5, 4.2), (12.5, 2.2), (9, 6.3), (5, 3.4), (0, 8.5)])
+
+
+def hero_signal(ground_y, static):
+    sx, sy = W * 0.30, ground_y + 2            # lamp hidden behind the skyline
+    cx, cy = W * 0.47, TITLEBAR_H + 52         # where the emblem lands
+    ang = math.degrees(math.atan2(cy - sy, cx - sx))
+    length = math.hypot(cx - sx, cy - sy)
+    sway = "" if static else (
+        f'<animateTransform attributeName="transform" type="rotate" '
+        f'values="-6 {sx:.1f} {sy:.1f};7 {sx:.1f} {sy:.1f};-6 {sx:.1f} {sy:.1f}" '
+        f'keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" '
+        f'dur="11s" repeatCount="indefinite"/>')
+    flick = "" if static else (
+        '<animate attributeName="opacity" values=".9;.75;.92;.6;.9" keyTimes="0;.3;.5;.55;1" '
+        'dur="3.7s" repeatCount="indefinite"/>')
+    # beam drawn pointing right from the lamp, then rotated toward the cloud
+    return (
+        '<defs><linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">'
+        '<stop offset="0" stop-color="#fff6c8" stop-opacity=".55"/>'
+        '<stop offset="1" stop-color="#fff6c8" stop-opacity=".06"/></linearGradient>'
+        '<radialGradient id="sig" cx=".5" cy=".5" r=".5">'
+        '<stop offset="0" stop-color="#fff3b8" stop-opacity=".95"/>'
+        '<stop offset=".75" stop-color="#f6df85" stop-opacity=".85"/>'
+        '<stop offset="1" stop-color="#f6df85" stop-opacity="0"/></radialGradient></defs>'
+        f'<g opacity="{1 if static else 0}">'
+        + ("" if static else '<animate attributeName="opacity" from="0" to="1" begin="1s" dur="1.2s" fill="freeze"/>')
+        + f'<g>{sway}'
+        f'<g transform="translate({sx:.1f},{sy:.1f}) rotate({ang:.1f})">'
+        f'<path d="M0,-2 L{length:.1f},-27 L{length:.1f},27 L0,2 Z" fill="url(#beam)"/>'
+        f'<g transform="translate({length:.1f},0) rotate({-ang:.1f})">'
+        f'<ellipse cx="0" cy="0" rx="40" ry="24" fill="#1b2a40" opacity=".55"/>'   # the cloud it lands on
+        f'<g>{flick}<ellipse cx="0" cy="0" rx="34" ry="19" fill="url(#sig)"/>'
+        f'<path d="{BAT}" fill="#0b111b" opacity=".92"/></g>'
+        '</g></g></g></g>')
+
+
+def spider_web(static):
+    ox, oy = 2, TITLEBAR_H + 1                  # anchored in the top-left corner of the sky
+    R = 74
+    angles = [4, 20, 36, 52, 68, 86]
+    rays = [(ox + R * math.cos(math.radians(a)), oy + R * math.sin(math.radians(a))) for a in angles]
+    out = ['<g stroke="#c9d1d9" fill="none" stroke-linecap="round">']
+    t = 0.6
+    for (x, y) in rays:
+        L = math.hypot(x - ox, y - oy)
+        anim = "" if static else (
+            f'<animate attributeName="stroke-dashoffset" from="{L:.0f}" to="0" begin="{t:.2f}s" '
+            f'dur=".35s" fill="freeze"/>')
+        out.append(f'<line x1="{ox}" y1="{oy}" x2="{x:.1f}" y2="{y:.1f}" stroke-width=".7" '
+                   f'stroke-opacity=".55" stroke-dasharray="{L:.0f}" '
+                   f'stroke-dashoffset="{0 if static else round(L)}">{anim}</line>')
+        t += 0.12
+    # capture spiral: sagging arcs between neighbouring rays at growing radii
+    for ri, r in enumerate([12, 21, 30, 39, 48, 57, 66]):
+        pts = [(ox + r * math.cos(math.radians(a)), oy + r * math.sin(math.radians(a))) for a in angles]
+        d = f"M{pts[0][0]:.1f},{pts[0][1]:.1f}"
+        seg_len = 0
+        for (x1, y1), (x2, y2) in zip(pts, pts[1:]):
+            # control point pulled toward the corner -> the silk sags
+            mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+            qx, qy = ox + (mx - ox) * 0.9, oy + (my - oy) * 0.9
+            d += f" Q{qx:.1f},{qy:.1f} {x2:.1f},{y2:.1f}"
+            seg_len += math.hypot(x2 - x1, y2 - y1)
+        L = seg_len * 1.05
+        anim = "" if static else (
+            f'<animate attributeName="stroke-dashoffset" from="{L:.0f}" to="0" begin="{t:.2f}s" '
+            f'dur=".4s" fill="freeze"/>')
+        out.append(f'<path d="{d}" stroke-width=".55" stroke-opacity=".45" stroke-dasharray="{L:.0f}" '
+                   f'stroke-dashoffset="{0 if static else round(L)}">{anim}</path>')
+        t += 0.2
+    out.append("</g>")
+    # the spider: drops from a strand on the web, then bobs on its silk
+    ax, ay = ox + 48 * math.cos(math.radians(52)), oy + 48 * math.sin(math.radians(52))
+    drop = 34
+    legs = "".join(
+        f'<path d="M{sgn * 1.5},{dy} q{sgn * 3},{-2.5 + k} {sgn * 5.5},{1 + k * 1.2}" />'
+        for sgn in (1, -1) for k, dy in enumerate((-1.2, -0.3, 0.6, 1.4)))
+    spider = (f'<g stroke="#8b949e" stroke-width=".7" fill="none">{legs}</g>'
+              f'<ellipse cx="0" cy="1.6" rx="2.6" ry="3.2" fill="#0b111b" stroke="#8b949e" stroke-width=".5"/>'
+              f'<circle cx="0" cy="-1.8" r="1.6" fill="#0b111b" stroke="#8b949e" stroke-width=".5"/>'
+              f'<circle cx="-.6" cy="-2" r=".35" fill="#ff7b72"/><circle cx=".6" cy="-2" r=".35" fill="#ff7b72"/>')
+    if static:
+        out.append(f'<line x1="{ax:.1f}" y1="{ay:.1f}" x2="{ax:.1f}" y2="{ay + drop:.1f}" stroke="#c9d1d9" '
+                   f'stroke-width=".5" stroke-opacity=".6"/>'
+                   f'<g transform="translate({ax:.1f},{ay + drop:.1f})">{spider}</g>')
+    else:
+        start = t + 0.2
+        out.append(
+            f'<line x1="{ax:.1f}" y1="{ay:.1f}" x2="{ax:.1f}" y2="{ay:.1f}" stroke="#c9d1d9" stroke-width=".5" '
+            f'stroke-opacity=".6">'
+            f'<animate attributeName="y2" from="{ay:.1f}" to="{ay + drop:.1f}" begin="{start:.2f}s" dur="1s" '
+            f'fill="freeze" calcMode="spline" keySplines=".3 .7 .4 1"/>'
+            f'<animate attributeName="y2" values="{ay + drop:.1f};{ay + drop - 6:.1f};{ay + drop:.1f}" '
+            f'begin="{start + 1:.2f}s" dur="2.4s" repeatCount="indefinite"/></line>'
+            f'<g transform="translate({ax:.1f},{ay:.1f})" opacity="0">'
+            f'<set attributeName="opacity" to="1" begin="{start:.2f}s"/>'
+            f'<animateTransform attributeName="transform" type="translate" from="{ax:.1f} {ay:.1f}" '
+            f'to="{ax:.1f} {ay + drop:.1f}" begin="{start:.2f}s" dur="1s" fill="freeze" '
+            f'calcMode="spline" keySplines=".3 .7 .4 1"/>'
+            f'<animateTransform attributeName="transform" type="translate" '
+            f'values="{ax:.1f} {ay + drop:.1f};{ax:.1f} {ay + drop - 6:.1f};{ax:.1f} {ay + drop:.1f}" '
+            f'begin="{start + 1:.2f}s" dur="2.4s" repeatCount="indefinite"/>'
+            f'{spider}</g>')
+    return "".join(out)
+
+
+def flyer(static):
+    """an original caped hero, flying right with a fluttering cape."""
+    cape_a = "M-3,-3 C-14,-6 -22,-2 -30,-5 C-26,0 -24,3 -30,6 C-20,5 -12,4 -3,2 Z"
+    cape_b = "M-3,-3 C-13,-1 -21,-7 -31,-2 C-25,1 -25,5 -29,9 C-20,6 -11,4 -3,2 Z"
+    cape_anim = "" if static else (
+        f'<animate attributeName="d" values="{cape_a};{cape_b};{cape_a}" dur=".35s" repeatCount="indefinite"/>')
+    body = (f'<path d="{cape_a}" fill="#da3633">{cape_anim}</path>'
+            '<rect x="-6" y="-2.6" width="15" height="5.2" rx="2.6" fill="#1f6feb"/>'   # body
+            '<rect x="-12" y="-1.9" width="7" height="3.6" rx="1.8" fill="#1f6feb"/>'    # legs
+            '<rect x="-14" y="-2" width="3" height="4" rx="1" fill="#da3633"/>'           # boots
+            '<rect x="8" y="-1.5" width="9" height="2.6" rx="1.3" fill="#1f6feb"/>'      # arm forward
+            '<circle cx="17.3" cy="-.2" r="1.6" fill="#f0c8a0"/>'                       # fist
+            '<circle cx="10.5" cy="-5" r="3" fill="#f0c8a0"/>'                           # head
+            '<path d="M8,-6.6 q2.5,-2.4 5.5,-.6 q-1.6,-.3 -2.6,.9 Z" fill="#0b111b"/>')  # hair
+    if static:
+        return f'<g transform="translate({W * 0.6:.0f},{TITLEBAR_H + 46}) rotate(-8)">{body}</g>'
+    y0, y1 = TITLEBAR_H + 112, TITLEBAR_H + 46
+    cycle = FLYER_EVERY
+    cross = 2.6 / cycle   # fraction of the cycle spent crossing the sky
+    return (f'<g opacity="0">'
+            f'<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;{cross:.3f};{cross + 0.001:.3f};1" '
+            f'calcMode="discrete" dur="{cycle}s" begin="{FLYER_FIRST}s" repeatCount="indefinite"/>'
+            f'<animateTransform attributeName="transform" type="translate" '
+            f'values="-40 {y0};{W * 0.5:.0f} {(y0 + y1) / 2 - 8:.0f};{W + 40} {y1};{W + 40} {y1}" '
+            f'keyTimes="0;{cross / 2:.3f};{cross:.3f};1" dur="{cycle}s" begin="{FLYER_FIRST}s" '
+            f'repeatCount="indefinite"/>'
+            f'<g transform="rotate(-8)">{body}</g></g>')
+
+
 def render(data, static=False):
     days = data["days"]
     mx = max((d["count"] for d in days), default=0)
@@ -189,6 +348,11 @@ def render(data, static=False):
     p.append(f'<circle cx="{mx_}" cy="{my_}" r="26" fill="url(#moon)" opacity=".35"/>')
     p.append(f'<circle cx="{mx_}" cy="{my_}" r="13" fill="#f6edc6"/>')
 
+    if SHOW_SIGNAL:
+        p.append(hero_signal(ground_y, static))
+    if SHOW_FLYER:
+        p.append(flyer(static))
+
     # distant silhouette so empty stretches still feel like a city
     sil = [f"M{PAD},{ground_y}"]
     x = PAD
@@ -200,6 +364,9 @@ def render(data, static=False):
     sil.append(f"L{W - PAD},{ground_y} Z")
     p.append(f'<path d="{" ".join(sil)}" fill="#13233a" opacity=".55"/>')
     p.append(f'<rect x="0" y="{ground_y - 60}" width="{W}" height="60" fill="url(#glow)"/>')
+
+    if SHOW_WEB:
+        p.append(spider_web(static))
 
     # ---- title bar ----
     p.append(f'<line x1="0" y1="{TITLEBAR_H}" x2="{W}" y2="{TITLEBAR_H}" stroke="{FRAME}" stroke-opacity=".35"/>')
@@ -346,7 +513,7 @@ def render(data, static=False):
     p.append(f'<text x="{W - PAD}" y="{ly}" font-size="12" fill="{MUTED}" text-anchor="end">'
              f'{rng["start"]} &#8594; {rng["end"]}</text>')
     ly += 24
-    status = (f'<tspan fill="{GOLD}" font-weight="700">{cs} floors &amp; rising</tspan>' if cs
+    status = (f'<tspan fill="{GOLD}" font-weight="700">{cs} floor{"s" if cs != 1 else ""} &amp; rising</tspan>' if cs
               else f'<tspan fill="{MUTED}">idle &#8212; next commit breaks ground</tspan>')
     p.append(f'<text x="{PAD}" y="{ly}" font-size="13" fill="{MUTED}">current build {status}'
              f'<tspan fill="{MUTED}">   &#183;   tallest </tspan>'
