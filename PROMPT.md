@@ -42,9 +42,10 @@ Here is exactly what I want you to do, in order:
    as the portrait; if it overflows, bump H in the script.
 
 5. Contribution graph: run `python scripts/fetch_contributions.py` (set
-   GH_PROFILE_USER to my username) then `python scripts/render_heatmap_svg.py`
-   to produce contrib-heatmap.svg -- a GitHub-style grid of boxes that reveal
-   cell by cell, with a Less->More legend and my real streak stats.
+   GH_PROFILE_USER to my username) then `python scripts/render_skyline_svg.py`
+   to produce contrib-skyline.svg -- an animated city where every unbroken
+   streak of commit days is a building and every day is one more floor; a
+   missed day starts a new building. Real streak stats in the footer.
 
 6. README: copy profile-README-template.md to README.md and fill in my name,
    tagline, and links. The portrait (width 370) and info card (width 490) sit in
