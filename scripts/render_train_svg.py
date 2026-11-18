@@ -26,7 +26,7 @@ STATIC = bool(os.environ.get("STATIC"))
 #  EDIT THIS
 # ===========================================================================
 MAX_CARS = 8
-EXCLUDE = set()              # repo names to keep off the train, e.g. {"tryd-test-app"}
+EXCLUDE = {"fastweb"}         # repo names to keep off the train
 REQUIRE_DESCRIPTION = True   # only repos with a description (they make better carriages)
 SKIP_FORKS = True
 # ===========================================================================
