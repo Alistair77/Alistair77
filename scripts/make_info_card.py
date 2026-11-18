@@ -129,22 +129,27 @@ for i, row in enumerate(ROWS):
 # ---------------------------------------------------------------------------
 #  SNAKE -- a snake-game snake that steps cell by cell around the panel (top
 #  lane under the title bar, down the right edge, a zig-zag through the free
-#  space under Highlights, back up the left edge), eating food as it goes.
-#  Pure SMIL (animateMotion with discrete steps) so it runs inside <img>.
+#  space under Highlights, back up the left edge). Like the real game it eats
+#  food, GROWS two segments per bite, and the score ticks up; each lap the
+#  board resets. The head faces where it's going, eyes + flicking tongue.
+#  Pure SMIL (discrete animateMotion steps) so it runs inside <img> on GitHub.
 # ---------------------------------------------------------------------------
-CELL = 8          # grid step in px (path corners sit on multiples of this)
-SEG = 6.5         # drawn segment size
+CELL = 10         # grid step in px (every route leg is a multiple of this)
+SEG = 9           # drawn segment size (CELL - SEG = the gap between scales)
 STEP_T = 0.045    # seconds per step
-SNAKE_LEN = 20
+BASE_LEN = 14     # length at the start of each lap
+GROW = 2          # segments gained per food
 # the snake always animates unless SNAKE_STATIC=1 (STATIC=1 only freezes the text rows)
 SNAKE_STATIC = bool(os.environ.get("SNAKE_STATIC"))
 SNAKE_HEAD = "#56d364"
-SNAKE_BODY = "#2ea043"
+SNAKE_BODY = ("#2ea043", "#238636")   # alternating scales
+SNAKE_EDGE = "#0f5323"
 FOOD = "#ff7b72"
+FOOD_AT = (0.12, 0.31, 0.47, 0.63, 0.86)  # where on the lap the food sits
 
 # corners of the route; every leg must be a multiple of CELL
-ROUTE = [(8, 40), (472, 40), (472, 368), (400, 368), (400, 336), (336, 336), (336, 368),
-         (240, 368), (240, 336), (176, 336), (176, 368), (8, 368), (8, 40)]
+ROUTE = [(10, 40), (470, 40), (470, 360), (400, 360), (400, 330), (340, 330), (340, 360),
+         (240, 360), (240, 330), (180, 330), (180, 360), (10, 360), (10, 40)]
 
 
 def route_cells(route):
@@ -156,55 +161,113 @@ def route_cells(route):
     return cells
 
 
+def heading(cells, i):
+    """degrees the head faces at cell i (0 = right, 90 = down)."""
+    (x1, y1), (x2, y2) = cells[i], cells[(i + 1) % len(cells)]
+    return {(1, 0): 0, (0, 1): 90, (-1, 0): 180, (0, -1): 270}[
+        ((x2 > x1) - (x2 < x1), (y2 > y1) - (y2 < y1))]
+
+
 def snake_layer(cells):
     n = len(cells)
     period = n * STEP_T
+    dur = f'dur="{period:.2f}s" repeatCount="indefinite"'
     sq = SEG / 2
+    max_len = BASE_LEN + GROW * len(FOOD_AT)
     out = ['<g>']
-    # food: sits on the route, vanishes when the head arrives, respawns half a lap later
-    food_idx = [int(n * f) for f in (0.12, 0.31, 0.47, 0.63, 0.86)]
-    eat_t = []
-    for fi in food_idx:
+
+    # ---- food: pulsing pellet + glow; vanishes as the head arrives, back half a lap later.
+    #      on the bite: a burst ring and a floating "+10".
+    food_idx = [int(n * f) for f in FOOD_AT]
+    eat_t = [fi / n for fi in food_idx]
+    for fi, t in zip(food_idx, eat_t):
         fx, fy = cells[fi]
-        t_eat = fi / n
-        eat_t.append(t_eat)
+        pellet = (f'<circle cx="{fx}" cy="{fy}" r="6" fill="{FOOD}" opacity=".18"/>'
+                  f'<circle cx="{fx}" cy="{fy}" r="3.4" fill="{FOOD}">'
+                  + ("" if SNAKE_STATIC else
+                     '<animate attributeName="r" values="3;4;3" dur="0.9s" repeatCount="indefinite"/>')
+                  + '</circle>')
         if SNAKE_STATIC:
-            out.append(f'<rect x="{fx-2.5}" y="{fy-2.5}" width="5" height="5" rx="1" fill="{FOOD}"/>')
+            out.append(pellet)
             continue
-        back = t_eat + 0.5
+        back = t + 0.5
         if back < 1:
-            kt, vals = f"0;{t_eat:.4f};{back:.4f};1", "1;0;1;1"
+            kt, vals = f"0;{t:.4f};{back:.4f};1", "1;0;1;1"
         else:
-            kt, vals = f"0;{back - 1:.4f};{t_eat:.4f};1", "0;1;0;0"
-        out.append(f'<rect x="{fx-2.5}" y="{fy-2.5}" width="5" height="5" rx="1" fill="{FOOD}">'
-                   f'<animate attributeName="opacity" values="{vals}" keyTimes="{kt}" calcMode="discrete" '
-                   f'dur="{period:.2f}s" repeatCount="indefinite"/></rect>')
-    # body (tail first so the head draws on top); segment k trails the head by k cells:
-    # a negative begin of (n-k) steps puts it k cells behind on the looping route
+            kt, vals = f"0;{back - 1:.4f};{t:.4f};1", "0;1;0;0"
+        out.append(f'<g>{pellet}<animate attributeName="opacity" values="{vals}" keyTimes="{kt}" '
+                   f'calcMode="discrete" {dur}/></g>')
+        t2, t3 = t + 0.002, t + 0.045
+        ktb = f"0;{t:.4f};{t2:.4f};{t3:.4f};1"
+        out.append(f'<circle cx="{fx}" cy="{fy}" r="3" fill="none" stroke="{FOOD}" stroke-width="1.5" opacity="0">'
+                   f'<animate attributeName="r" values="3;3;3;14;14" keyTimes="{ktb}" {dur}/>'
+                   f'<animate attributeName="opacity" values="0;0;.9;0;0" keyTimes="{ktb}" {dur}/></circle>')
+        t4 = t + 0.07
+        ktp = f"0;{t:.4f};{t2:.4f};{t4:.4f};1"
+        # pop text floats up, except in the top lane where it would hit the title bar
+        ty, rise_px = (fy + 18, -6) if fy < 60 else (fy - 8, -16)
+        tx, anchor = (fx - 9, "end") if fx > W - 40 else ((fx + 9, "start") if fx < 40 else (fx, "middle"))
+        out.append(f'<text x="{tx}" y="{ty}" fill="#ffa198" font-size="10" font-weight="700" '
+                   f'text-anchor="{anchor}" opacity="0">+10'
+                   f'<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="{ktp}" {dur}/>'
+                   f'<animateTransform attributeName="transform" type="translate" '
+                   f'values="0 0;0 0;0 0;0 {rise_px};0 {rise_px}" keyTimes="{ktp}" {dur}/></text>')
+
+    # ---- body, tail first so the head draws on top. segment k trails the head by k
+    #      cells (a negative begin of (n-k) steps). segments past BASE_LEN only
+    #      appear once enough food has been eaten this lap -> the snake grows.
     values = ";".join(f"{x},{y}" for x, y in cells)
-    for k in reversed(range(SNAKE_LEN)):
-        head = k == 0
-        col = SNAKE_HEAD if head else SNAKE_BODY
-        op = 1 - (k / SNAKE_LEN) * 0.55
-        shape = (f'<rect x="{-sq}" y="{-sq}" width="{SEG}" height="{SEG}" rx="{2.2 if head else 1.4}" '
-                 f'fill="{col}" opacity="{op:.2f}"/>')
-        if head:
-            shape += '<circle cx="1.4" cy="-1.3" r="0.9" fill="#0d1117"/>'
+    head_i = 46  # where the frozen SNAKE_STATIC frame puts the head
+    for k in reversed(range(max_len)):
+        if k == 0:
+            # head: rounded front, two eyes and a tongue, rotated to face the direction of travel
+            shape = (f'<rect x="{-sq - 0.5}" y="{-sq - 0.5}" width="{SEG + 1}" height="{SEG + 1}" rx="3.6" '
+                     f'fill="{SNAKE_HEAD}" stroke="{SNAKE_EDGE}" stroke-width=".8"/>'
+                     f'<circle cx="1.6" cy="-2.3" r="1.5" fill="#fff"/><circle cx="2.1" cy="-2.3" r=".8" fill="#0d1117"/>'
+                     f'<circle cx="1.6" cy="2.3" r="1.5" fill="#fff"/><circle cx="2.1" cy="2.3" r=".8" fill="#0d1117"/>'
+                     f'<path d="M{sq + 0.5},0 h3.2 m0,0 l1.6,-1.4 m-1.6,1.4 l1.6,1.4" stroke="#ff5f56" '
+                     f'stroke-width=".9" stroke-linecap="round" fill="none">'
+                     + ("" if SNAKE_STATIC else
+                        '<animate attributeName="opacity" values="1;0;0;1" keyTimes="0;.3;.8;1" '
+                        'calcMode="discrete" dur="0.7s" repeatCount="indefinite"/>')
+                     + '</path>')
+            if SNAKE_STATIC:
+                shape = f'<g transform="rotate({heading(cells, head_i)})">{shape}</g>'
+            else:
+                rots = ";".join(str(heading(cells, i)) for i in range(n))
+                shape = (f'<g>{shape}<animateTransform attributeName="transform" type="rotate" '
+                         f'values="{rots}" calcMode="discrete" {dur}/></g>')
+        else:
+            fade = 1 - (k / max_len) * 0.45
+            shape = (f'<rect x="{-sq}" y="{-sq}" width="{SEG}" height="{SEG}" rx="2.4" '
+                     f'fill="{SNAKE_BODY[k % 2]}" stroke="{SNAKE_EDGE}" stroke-width=".6" opacity="{fade:.2f}"/>'
+                     f'<rect x="{-sq + 2}" y="{-sq + 1.6}" width="{SEG - 4}" height="1.6" rx=".8" '
+                     f'fill="#7ee787" opacity=".35"/>')
         if SNAKE_STATIC:
-            x, y = cells[(40 - k) % n]
+            if k >= BASE_LEN:
+                continue
+            x, y = cells[(head_i - k) % n]
             out.append(f'<g transform="translate({x},{y})">{shape}</g>')
             continue
-        out.append(f'<g>{shape}<animateMotion values="{values}" calcMode="discrete" dur="{period:.2f}s" '
+        grow = ""
+        if k >= BASE_LEN:
+            t = eat_t[(k - BASE_LEN) // GROW]
+            grow = (f'<animate attributeName="opacity" values="0;1" keyTimes="0;{t:.4f}" '
+                    f'calcMode="discrete" {dur}/>')
+        out.append(f'<g opacity="{0 if grow else 1}">{shape}{grow}<animateMotion values="{values}" '
+                   f'calcMode="discrete" dur="{period:.2f}s" '
                    f'begin="{-((n - k) % n) * STEP_T:.3f}s" repeatCount="indefinite"/></g>')
-    # score in the title bar: one counter per food eaten this lap
+
+    # ---- score + length in the title bar, one label per stretch between bites
     if not SNAKE_STATIC:
         bounds = [0.0] + eat_t + [1.0]
         for i in range(len(bounds) - 1):
             a, b = bounds[i], bounds[i + 1]
-            out.append(f'<text x="{W - PAD}" y="{TITLEBAR_H/2 + 4}" fill="{SNAKE_HEAD}" font-size="11" '
-                       f'text-anchor="end" opacity="0">&#9632; score {i * 10:03d}'
+            out.append(f'<text x="{W - PAD}" y="{TITLEBAR_H/2 + 4}" fill="{SNAKE_HEAD}" font-size="10.5" '
+                       f'text-anchor="end" opacity="0">&#9632; {i * 10:03d}'
+                       f'<tspan fill="{MUTED}"> len {BASE_LEN + GROW * i}</tspan>'
                        f'<animate attributeName="opacity" values="0;1;0" keyTimes="0;{a:.4f};{b:.4f}" '
-                       f'calcMode="discrete" dur="{period:.2f}s" repeatCount="indefinite"/></text>')
+                       f'calcMode="discrete" {dur}/></text>')
     out.append("</g>")
     return "".join(out)
 
