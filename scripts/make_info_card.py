@@ -134,8 +134,8 @@ for i, row in enumerate(ROWS):
 # ---------------------------------------------------------------------------
 CELL = 8          # grid step in px (path corners sit on multiples of this)
 SEG = 6.5         # drawn segment size
-STEP_T = 0.075    # seconds per step
-SNAKE_LEN = 11
+STEP_T = 0.045    # seconds per step
+SNAKE_LEN = 20
 # the snake always animates unless SNAKE_STATIC=1 (STATIC=1 only freezes the text rows)
 SNAKE_STATIC = bool(os.environ.get("SNAKE_STATIC"))
 SNAKE_HEAD = "#56d364"
