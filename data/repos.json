@@ -6,68 +6,8 @@
       "description": "Profile README",
       "language": "Python",
       "stargazers_count": 1,
-      "pushed_at": "2026-11-18T17:30:32Z",
+      "pushed_at": "2026-11-18T17:37:40Z",
       "html_url": "https://github.com/Alistair77/Alistair77",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "kyber-repo",
-      "description": "Kyber Repo: local, deterministic security assessment of project archives in the browser (Rust + WebAssembly)",
-      "language": "Rust",
-      "stargazers_count": 0,
-      "pushed_at": "2026-11-18T17:30:05Z",
-      "html_url": "https://github.com/Alistair77/kyber-repo",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "modozol",
-      "description": null,
-      "language": null,
-      "stargazers_count": 0,
-      "pushed_at": "2026-11-18T17:28:58Z",
-      "html_url": "https://github.com/Alistair77/modozol",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "skill-hunter-repo",
-      "description": null,
-      "language": "Python",
-      "stargazers_count": 0,
-      "pushed_at": "2026-11-18T16:51:21Z",
-      "html_url": "https://github.com/Alistair77/skill-hunter-repo",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "fastweb",
-      "description": "Fast Company India web platform (Bizora) \u2014 private working repo",
-      "language": "HTML",
-      "stargazers_count": 0,
-      "pushed_at": "2026-11-16T18:38:54Z",
-      "html_url": "https://github.com/Alistair77/fastweb",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "repobiweb",
-      "description": "repoBI in the browser (WebAssembly)",
-      "language": "HTML",
-      "stargazers_count": 0,
-      "pushed_at": "2026-11-14T11:56:35Z",
-      "html_url": "https://github.com/Alistair77/repobiweb",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "repoBI",
-      "description": "repoBI: a clean-room, Rust-native, macOS-first business intelligence desktop app. Independent project, not affiliated with Microsoft.",
-      "language": "Rust",
-      "stargazers_count": 0,
-      "pushed_at": "2026-11-08T07:43:23Z",
-      "html_url": "https://github.com/Alistair77/repoBI",
       "fork": false,
       "archived": false
     },
@@ -192,16 +132,6 @@
       "archived": false
     },
     {
-      "name": "gift",
-      "description": null,
-      "language": "TypeScript",
-      "stargazers_count": 0,
-      "pushed_at": "2026-08-11T18:19:51Z",
-      "html_url": "https://github.com/Alistair77/gift",
-      "fork": false,
-      "archived": false
-    },
-    {
       "name": "agent-evals",
       "description": "Automated eval dataset generator and scoring pipeline for LLM agents \u2014 Claude-as-judge, DuckDB, Streamlit",
       "language": "Python",
@@ -228,16 +158,6 @@
       "stargazers_count": 0,
       "pushed_at": "2026-07-30T05:59:17Z",
       "html_url": "https://github.com/Alistair77/qretical-nomad-hero",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "tryd-test-app",
-      "description": null,
-      "language": "HTML",
-      "stargazers_count": 0,
-      "pushed_at": "2026-07-29T15:33:31Z",
-      "html_url": "https://github.com/Alistair77/tryd-test-app",
       "fork": false,
       "archived": false
     },
@@ -358,16 +278,6 @@
       "stargazers_count": 0,
       "pushed_at": "2023-03-04T17:43:14Z",
       "html_url": "https://github.com/Alistair77/few-games",
-      "fork": false,
-      "archived": false
-    },
-    {
-      "name": "cv",
-      "description": null,
-      "language": "HTML",
-      "stargazers_count": 0,
-      "pushed_at": "2022-09-04T09:38:18Z",
-      "html_url": "https://github.com/Alistair77/cv",
       "fork": false,
       "archived": false
     }
