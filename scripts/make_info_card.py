@@ -126,6 +126,90 @@ for i, row in enumerate(ROWS):
     parts.append(rise(inner, i))
     y += LINE_H
 
+# ---------------------------------------------------------------------------
+#  SNAKE -- a snake-game snake that steps cell by cell around the panel (top
+#  lane under the title bar, down the right edge, a zig-zag through the free
+#  space under Highlights, back up the left edge), eating food as it goes.
+#  Pure SMIL (animateMotion with discrete steps) so it runs inside <img>.
+# ---------------------------------------------------------------------------
+CELL = 8          # grid step in px (path corners sit on multiples of this)
+SEG = 6.5         # drawn segment size
+STEP_T = 0.075    # seconds per step
+SNAKE_LEN = 11
+# the snake always animates unless SNAKE_STATIC=1 (STATIC=1 only freezes the text rows)
+SNAKE_STATIC = bool(os.environ.get("SNAKE_STATIC"))
+SNAKE_HEAD = "#56d364"
+SNAKE_BODY = "#2ea043"
+FOOD = "#ff7b72"
+
+# corners of the route; every leg must be a multiple of CELL
+ROUTE = [(8, 40), (472, 40), (472, 368), (400, 368), (400, 336), (336, 336), (336, 368),
+         (240, 368), (240, 336), (176, 336), (176, 368), (8, 368), (8, 40)]
+
+
+def route_cells(route):
+    cells = []
+    for (x1, y1), (x2, y2) in zip(route, route[1:]):
+        n = (abs(x2 - x1) + abs(y2 - y1)) // CELL
+        dx, dy = (x2 - x1) // n, (y2 - y1) // n
+        cells += [(x1 + dx * i, y1 + dy * i) for i in range(n)]
+    return cells
+
+
+def snake_layer(cells):
+    n = len(cells)
+    period = n * STEP_T
+    sq = SEG / 2
+    out = ['<g>']
+    # food: sits on the route, vanishes when the head arrives, respawns half a lap later
+    food_idx = [int(n * f) for f in (0.12, 0.31, 0.47, 0.63, 0.86)]
+    eat_t = []
+    for fi in food_idx:
+        fx, fy = cells[fi]
+        t_eat = fi / n
+        eat_t.append(t_eat)
+        if SNAKE_STATIC:
+            out.append(f'<rect x="{fx-2.5}" y="{fy-2.5}" width="5" height="5" rx="1" fill="{FOOD}"/>')
+            continue
+        back = t_eat + 0.5
+        if back < 1:
+            kt, vals = f"0;{t_eat:.4f};{back:.4f};1", "1;0;1;1"
+        else:
+            kt, vals = f"0;{back - 1:.4f};{t_eat:.4f};1", "0;1;0;0"
+        out.append(f'<rect x="{fx-2.5}" y="{fy-2.5}" width="5" height="5" rx="1" fill="{FOOD}">'
+                   f'<animate attributeName="opacity" values="{vals}" keyTimes="{kt}" calcMode="discrete" '
+                   f'dur="{period:.2f}s" repeatCount="indefinite"/></rect>')
+    # body (tail first so the head draws on top); segment k trails the head by k cells:
+    # a negative begin of (n-k) steps puts it k cells behind on the looping route
+    values = ";".join(f"{x},{y}" for x, y in cells)
+    for k in reversed(range(SNAKE_LEN)):
+        head = k == 0
+        col = SNAKE_HEAD if head else SNAKE_BODY
+        op = 1 - (k / SNAKE_LEN) * 0.55
+        shape = (f'<rect x="{-sq}" y="{-sq}" width="{SEG}" height="{SEG}" rx="{2.2 if head else 1.4}" '
+                 f'fill="{col}" opacity="{op:.2f}"/>')
+        if head:
+            shape += '<circle cx="1.4" cy="-1.3" r="0.9" fill="#0d1117"/>'
+        if SNAKE_STATIC:
+            x, y = cells[(40 - k) % n]
+            out.append(f'<g transform="translate({x},{y})">{shape}</g>')
+            continue
+        out.append(f'<g>{shape}<animateMotion values="{values}" calcMode="discrete" dur="{period:.2f}s" '
+                   f'begin="{-((n - k) % n) * STEP_T:.3f}s" repeatCount="indefinite"/></g>')
+    # score in the title bar: one counter per food eaten this lap
+    if not SNAKE_STATIC:
+        bounds = [0.0] + eat_t + [1.0]
+        for i in range(len(bounds) - 1):
+            a, b = bounds[i], bounds[i + 1]
+            out.append(f'<text x="{W - PAD}" y="{TITLEBAR_H/2 + 4}" fill="{SNAKE_HEAD}" font-size="11" '
+                       f'text-anchor="end" opacity="0">&#9632; score {i * 10:03d}'
+                       f'<animate attributeName="opacity" values="0;1;0" keyTimes="0;{a:.4f};{b:.4f}" '
+                       f'calcMode="discrete" dur="{period:.2f}s" repeatCount="indefinite"/></text>')
+    out.append("</g>")
+    return "".join(out)
+
+
+parts.append(snake_layer(route_cells(ROUTE)))
 parts.append("</svg>")
 svg = "".join(parts)
 with open(OUT, "w") as f:
