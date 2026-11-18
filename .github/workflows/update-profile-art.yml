@@ -1,6 +1,6 @@
 name: Update profile art
 
-# Re-scrapes your public contributions and re-renders the heatmap daily.
+# Re-scrapes your public contributions and re-renders the contribution skyline daily.
 # No token needed — GitHub's contributions fragment is public. The built-in
 # GITHUB_TOKEN only commits the regenerated SVG back to the repo.
 on:
@@ -29,17 +29,17 @@ jobs:
           GH_PROFILE_USER: ${{ github.repository_owner }}
         run: python scripts/fetch_contributions.py
 
-      - name: Render heatmap
-        run: python scripts/render_heatmap_svg.py
+      - name: Render skyline
+        run: python scripts/render_skyline_svg.py
 
       - name: Commit if changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add contrib-heatmap.svg data/contributions.json
+          git add contrib-skyline.svg data/contributions.json
           if git diff --cached --quiet; then
             echo "No change in contributions."
           else
-            git commit -m "chore: refresh contribution graph"
+            git commit -m "chore: grow contribution skyline"
             git push
           fi

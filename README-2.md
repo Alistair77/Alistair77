@@ -25,7 +25,7 @@ scripts/
   make_ascii_svg.py          photo  -> typing monochrome ASCII portrait
   make_info_card.py          your experience/stack -> neofetch info panel  <- EDIT
   fetch_contributions.py     scrapes your real contributions (no auth)
-  render_heatmap_svg.py      contributions -> animated box graph
+  render_skyline_svg.py      contributions -> animated skyline (streak = building, day = floor)
   requirements.txt           deps the daily workflow needs
 .github/workflows/
   update-profile-art.yml     refreshes the graph every day, automatically
@@ -59,14 +59,14 @@ python scripts/make_info_card.py              # -> info-card.svg
 
 # 3. contribution graph
 GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_contributions.py
-python scripts/render_heatmap_svg.py          # -> contrib-heatmap.svg
+python scripts/render_skyline_svg.py          # -> contrib-skyline.svg
 
 # 4. README
 cp profile-README-template.md README.md       # then fill in name / tagline / links
 ```
 
 Create a **public repo named exactly your GitHub username**, drop in
-`avi-ascii.svg`, `info-card.svg`, `contrib-heatmap.svg`, `README.md`, the
+`avi-ascii.svg`, `info-card.svg`, `contrib-skyline.svg`, `README.md`, the
 `scripts/` folder, `data/contributions.json`, and `.github/`, then push.
 
 Finally: **Settings → Actions → General → Workflow permissions → Read and write**,
