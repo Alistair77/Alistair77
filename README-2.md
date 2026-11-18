@@ -23,7 +23,8 @@ requirements-local.txt       deps for the one-time local image prep
 scripts/
   prep_photo.py              rembg background removal + CLAHE contrast (run once)
   make_ascii_svg.py          photo  -> typing monochrome ASCII portrait
-  make_info_card.py          your experience/stack -> neofetch info panel  <- EDIT
+  make_info_card.py          your experience/stack -> AI-agent answer card + snake  <- EDIT
+  make_reveal_svg.py         shirt-rip reveal with your crest + hero card  <- EDIT
   fetch_contributions.py     scrapes your real contributions (no auth)
   render_skyline_svg.py      contributions -> animated skyline (streak = building, day = floor)
   requirements.txt           deps the daily workflow needs
@@ -56,6 +57,7 @@ qlmanage -t -s 900 -o . avi-ascii.svg         # preview (macOS)
 
 # 2. info panel  (edit the ROWS + HOST at the top of the script first)
 python scripts/make_info_card.py              # -> info-card.svg
+python scripts/make_reveal_svg.py             # -> reveal.svg
 
 # 3. contribution graph
 GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_contributions.py
