@@ -1,0 +1,375 @@
+{
+  "username": "Alistair77",
+  "repos": [
+    {
+      "name": "Alistair77",
+      "description": "Profile README",
+      "language": "Python",
+      "stargazers_count": 1,
+      "pushed_at": "2026-11-18T17:30:32Z",
+      "html_url": "https://github.com/Alistair77/Alistair77",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "kyber-repo",
+      "description": "Kyber Repo: local, deterministic security assessment of project archives in the browser (Rust + WebAssembly)",
+      "language": "Rust",
+      "stargazers_count": 0,
+      "pushed_at": "2026-11-18T17:30:05Z",
+      "html_url": "https://github.com/Alistair77/kyber-repo",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "modozol",
+      "description": null,
+      "language": null,
+      "stargazers_count": 0,
+      "pushed_at": "2026-11-18T17:28:58Z",
+      "html_url": "https://github.com/Alistair77/modozol",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "skill-hunter-repo",
+      "description": null,
+      "language": "Python",
+      "stargazers_count": 0,
+      "pushed_at": "2026-11-18T16:51:21Z",
+      "html_url": "https://github.com/Alistair77/skill-hunter-repo",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "fastweb",
+      "description": "Fast Company India web platform (Bizora) \u2014 private working repo",
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2026-11-16T18:38:54Z",
+      "html_url": "https://github.com/Alistair77/fastweb",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "repobiweb",
+      "description": "repoBI in the browser (WebAssembly)",
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2026-11-14T11:56:35Z",
+      "html_url": "https://github.com/Alistair77/repobiweb",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "repoBI",
+      "description": "repoBI: a clean-room, Rust-native, macOS-first business intelligence desktop app. Independent project, not affiliated with Microsoft.",
+      "language": "Rust",
+      "stargazers_count": 0,
+      "pushed_at": "2026-11-08T07:43:23Z",
+      "html_url": "https://github.com/Alistair77/repoBI",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "template-one",
+      "description": "Standalone Autodesk Manufacturing Next event microsite",
+      "language": "CSS",
+      "stargazers_count": 0,
+      "pushed_at": "2026-10-29T07:20:55Z",
+      "html_url": "https://github.com/Alistair77/template-one",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "comos_Alistair_portfolio",
+      "description": "Interactive space-themed portfolio of Alistair Rodrigues, AI engineer \u2014 a single hand-crafted WebGL + canvas page (model-viewer, GSAP, Lenis) art-directed after Interstellar.",
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2026-10-21T04:02:57Z",
+      "html_url": "https://github.com/Alistair77/comos_Alistair_portfolio",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "FC-India",
+      "description": "Fast Company India homepage",
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2026-10-20T08:28:10Z",
+      "html_url": "https://github.com/Alistair77/FC-India",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "bizaura",
+      "description": null,
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "pushed_at": "2026-10-20T07:01:42Z",
+      "html_url": "https://github.com/Alistair77/bizaura",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "professional-portfolio-website",
+      "description": "Portfolio of Alistair Rodrigues \u2014 AI \u00b7 Data \u00b7 UX Engineer. A macOS-inspired desktop environment with draggable windows, a magnifying dock and an animated wallpaper. Live: https://alistair77.github.io/professional-portfolio-website/",
+      "language": "JavaScript",
+      "stargazers_count": 1,
+      "pushed_at": "2026-10-20T03:16:17Z",
+      "html_url": "https://github.com/Alistair77/professional-portfolio-website",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "pylearnweb",
+      "description": "PyLearnWeb \u2014 learn Python the practical way. React + Vite landing page.",
+      "language": "JavaScript",
+      "stargazers_count": 1,
+      "pushed_at": "2026-10-13T08:27:02Z",
+      "html_url": "https://github.com/Alistair77/pylearnweb",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "zetsu-voice-agent",
+      "description": "A voice-first assistant that runs entirely on your own machine. Wake word, barge-in with real echo cancellation, memory that survives restarts, twenty tools, and a neural voice \u2014 no API keys, nothing uploaded. ~500ms from you stopping to it speaking, on an 8GB M1.",
+      "language": "Python",
+      "stargazers_count": 2,
+      "pushed_at": "2026-10-13T08:04:25Z",
+      "html_url": "https://github.com/Alistair77/zetsu-voice-agent",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "openjev",
+      "description": null,
+      "language": "Python",
+      "stargazers_count": 0,
+      "pushed_at": "2026-09-23T05:38:53Z",
+      "html_url": "https://github.com/Alistair77/openjev",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "agent-orchestrator",
+      "description": "Multi-step AI agent: Plan -> Act -> Reflect with human-in-the-loop approval, Redis session memory, and a replayable Postgres audit log. LangGraph + Claude. Runs without an API key.",
+      "language": "Python",
+      "stargazers_count": 1,
+      "pushed_at": "2026-09-20T03:45:29Z",
+      "html_url": "https://github.com/Alistair77/agent-orchestrator",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "Jericho-Agentic-Space-Station",
+      "description": "3D space-station view of my Claude Code skills and the task each one is running",
+      "language": "HTML",
+      "stargazers_count": 1,
+      "pushed_at": "2026-09-18T12:36:39Z",
+      "html_url": "https://github.com/Alistair77/Jericho-Agentic-Space-Station",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "ragstar",
+      "description": "Local-first hybrid-search RAG over your own documents \u2014 vector + BM25 merged with RRF, cross-encoder reranking, clickable citations, and a hard refusal when retrieval is too weak. No API keys: every model runs on your machine.",
+      "language": "Python",
+      "stargazers_count": 2,
+      "pushed_at": "2026-09-14T01:56:12Z",
+      "html_url": "https://github.com/Alistair77/ragstar",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "semantic-cache",
+      "description": "Semantic caching layer for Claude API calls \u2014 FAISS + FastAPI",
+      "language": "Python",
+      "stargazers_count": 1,
+      "pushed_at": "2026-09-10T02:28:48Z",
+      "html_url": "https://github.com/Alistair77/semantic-cache",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "gift",
+      "description": null,
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "pushed_at": "2026-08-11T18:19:51Z",
+      "html_url": "https://github.com/Alistair77/gift",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "agent-evals",
+      "description": "Automated eval dataset generator and scoring pipeline for LLM agents \u2014 Claude-as-judge, DuckDB, Streamlit",
+      "language": "Python",
+      "stargazers_count": 1,
+      "pushed_at": "2026-08-08T20:00:26Z",
+      "html_url": "https://github.com/Alistair77/agent-evals",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "pythonsphere",
+      "description": null,
+      "language": "JavaScript",
+      "stargazers_count": 0,
+      "pushed_at": "2026-07-31T08:02:15Z",
+      "html_url": "https://github.com/Alistair77/pythonsphere",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "qretical-nomad-hero",
+      "description": null,
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2026-07-30T05:59:17Z",
+      "html_url": "https://github.com/Alistair77/qretical-nomad-hero",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "tryd-test-app",
+      "description": null,
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2026-07-29T15:33:31Z",
+      "html_url": "https://github.com/Alistair77/tryd-test-app",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "Alistair",
+      "description": null,
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "pushed_at": "2026-07-28T11:24:22Z",
+      "html_url": "https://github.com/Alistair77/Alistair",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "study_snipp",
+      "description": null,
+      "language": "Kotlin",
+      "stargazers_count": 0,
+      "pushed_at": "2026-07-01T06:00:04Z",
+      "html_url": "https://github.com/Alistair77/study_snipp",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "portfolio_v1",
+      "description": null,
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "pushed_at": "2026-06-26T20:47:07Z",
+      "html_url": "https://github.com/Alistair77/portfolio_v1",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "obisa_cv_impr",
+      "description": null,
+      "language": null,
+      "stargazers_count": 0,
+      "pushed_at": "2026-06-26T20:42:18Z",
+      "html_url": "https://github.com/Alistair77/obisa_cv_impr",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "health-weight-app-compose",
+      "description": null,
+      "language": "Kotlin",
+      "stargazers_count": 0,
+      "pushed_at": "2026-06-25T02:11:48Z",
+      "html_url": "https://github.com/Alistair77/health-weight-app-compose",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "AAPL_stock_prediction-2024",
+      "description": null,
+      "language": "Jupyter Notebook",
+      "stargazers_count": 0,
+      "pushed_at": "2024-12-14T20:41:12Z",
+      "html_url": "https://github.com/Alistair77/AAPL_stock_prediction-2024",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "To-do-list-1.0",
+      "description": "just a to do list website with ejs using template for this to do list",
+      "language": "CSS",
+      "stargazers_count": 0,
+      "pushed_at": "2023-04-10T11:39:24Z",
+      "html_url": "https://github.com/Alistair77/To-do-list-1.0",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "city-temp-webpg",
+      "description": null,
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2023-04-04T08:48:20Z",
+      "html_url": "https://github.com/Alistair77/city-temp-webpg",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "Newsletter-2.0",
+      "description": "just better than the before newsletter cuz that newsletter has problem n not good css at all",
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2023-03-31T21:32:19Z",
+      "html_url": "https://github.com/Alistair77/Newsletter-2.0",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "Newsletter-1.0",
+      "description": null,
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2023-03-30T15:00:57Z",
+      "html_url": "https://github.com/Alistair77/Newsletter-1.0",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "drum-based-website",
+      "description": null,
+      "language": "JavaScript",
+      "stargazers_count": 0,
+      "pushed_at": "2023-03-04T17:57:11Z",
+      "html_url": "https://github.com/Alistair77/drum-based-website",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "few-games",
+      "description": "just adding javascript to html files",
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2023-03-04T17:43:14Z",
+      "html_url": "https://github.com/Alistair77/few-games",
+      "fork": false,
+      "archived": false
+    },
+    {
+      "name": "cv",
+      "description": null,
+      "language": "HTML",
+      "stargazers_count": 0,
+      "pushed_at": "2022-09-04T09:38:18Z",
+      "html_url": "https://github.com/Alistair77/cv",
+      "fork": false,
+      "archived": false
+    }
+  ]
+}
