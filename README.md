@@ -27,4 +27,9 @@
 <!-- animated contribution graph, refreshed daily by the workflow -->
 <img src="./contrib-skyline.svg" width="860" alt="Contribution skyline: every streak is a building, every day a floor" />
 
+<br><br>
+
+<!-- recent repos as a train, refreshed daily by the workflow -->
+<img src="./repo-train.svg" width="860" alt="Repo Express: my most recently pushed repos as train carriages" />
+
 </div>

@@ -27,6 +27,8 @@ scripts/
   make_reveal_svg.py         shirt-rip reveal with your crest + hero card  <- EDIT
   fetch_contributions.py     scrapes your real contributions (no auth)
   render_skyline_svg.py      contributions -> animated skyline (streak = building, day = floor)
+  fetch_repos.py             your recent public repos (no auth)
+  render_train_svg.py        recent repos -> "Repo Express" train, one carriage per repo
   requirements.txt           deps the daily workflow needs
 .github/workflows/
   update-profile-art.yml     refreshes the graph every day, automatically
@@ -62,6 +64,8 @@ python scripts/make_reveal_svg.py             # -> reveal.svg
 # 3. contribution graph
 GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_contributions.py
 python scripts/render_skyline_svg.py          # -> contrib-skyline.svg
+GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_repos.py
+python scripts/render_train_svg.py            # -> repo-train.svg
 
 # 4. README
 cp profile-README-template.md README.md       # then fill in name / tagline / links
