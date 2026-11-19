@@ -1,15 +1,9 @@
 <div align="center">
 
-<table>
-<tr>
-<td valign="top"><img src="./avi-ascii.svg" width="370" alt="ASCII portrait" /></td>
-<td valign="top"><img src="./info-card.svg" width="490" alt="Experience, stack, highlights" /></td>
-</tr>
-</table>
+<!-- hero: the shirt-rip reveal (static art: python scripts/make_reveal_svg.py) -->
+<img src="./reveal.svg" width="860" alt="Alistair, AI Engineer: a dev pulls open their shirt to reveal a glowing crest" />
 
-## Alistair
-
-**AI Engineer · Builder · Lifelong Learner**
+<br><br>
 
 [![GitHub](https://img.shields.io/badge/GitHub-Alistair77-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alistair77)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-alistair77-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alistair77/)
@@ -17,19 +11,14 @@
 [![Instagram](https://img.shields.io/badge/Instagram-@r.alistair7-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/r.alistair7)
 [![YouTube](https://img.shields.io/badge/YouTube-@ar7studio359-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@ar7studio359)
 
-<br>
+<br><br>
 
-<!-- the shirt-rip reveal (static art, regenerate with scripts/make_reveal_svg.py) -->
-<img src="./reveal.svg" width="860" alt="Shirt-rip reveal: a dev pulls open their shirt to reveal a glowing crest" />
+<!-- about: ASCII portrait + agent card in one panel (python scripts/compose_about.py) -->
+<img src="./about.svg" width="860" alt="ASCII portrait beside an AI agent answering who Alistair is: role, stack and highlights" />
 
 <br><br>
 
-<!-- animated contribution graph, refreshed daily by the workflow -->
-<img src="./contrib-skyline.svg" width="860" alt="Contribution skyline: every streak is a building, every day a floor" />
-
-<br><br>
-
-<!-- recent repos as a train, refreshed daily by the workflow -->
-<img src="./repo-train.svg" width="860" alt="Repo Express: my most recently pushed repos as train carriages" />
+<!-- activity: contribution skyline + the Repo Express, refreshed daily by the workflow -->
+<img src="./contrib-skyline.svg" width="860" alt="Contribution skyline (every streak a building, every day a floor) with recent repos riding a train along the street" />
 
 </div>

@@ -26,6 +26,10 @@ import json
 import math
 import os
 import random
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import repo_train  # noqa: E402  (the Repo Express that runs along the viaduct)
 
 HERE = os.path.dirname(__file__)
 IN_PATH = os.path.join(HERE, "..", "data", "contributions.json")
@@ -38,11 +42,13 @@ SIDE = ["#0b0f15", "#082a19", "#04431f", "#176a29", "#238a35", "#3fa86a"]  # dar
 WIN_ON = "#fff3b0"
 WIN_OFF = "#0a1410"
 
-W = 869
+W = 860
 PAD = 22
 TITLEBAR_H = 30
 SKY_H = 230          # sky + buildings area (above the street)
-STREET_H = 34
+STREET_H = 96         # street: month labels + the Repo Express viaduct
+RAIL_DROP = 84        # rail height below the ground line
+SHOW_TRAIN = True
 STATS_H = 78
 H = TITLEBAR_H + SKY_H + STREET_H + STATS_H
 
@@ -482,8 +488,6 @@ def render(data, static=False):
     # ---- street ----
     p.append(f'<rect x="0" y="{ground_y}" width="{W}" height="{STREET_H}" fill="#0b1018"/>')
     p.append(f'<line x1="{PAD}" y1="{ground_y + 0.5}" x2="{W - PAD}" y2="{ground_y + 0.5}" stroke="#30363d" stroke-width="1.5"/>')
-    p.append(f'<line x1="{PAD}" y1="{ground_y + 22}" x2="{W - PAD}" y2="{ground_y + 22}" stroke="#30363d" '
-             f'stroke-width="1.2" stroke-dasharray="10 8"/>')
     last_x = -99
     for mx_x, month in month_marks:
         if mx_x - last_x < 30:
@@ -491,6 +495,19 @@ def render(data, static=False):
         last_x = mx_x
         label = datetime.date.fromisoformat(month + "-01").strftime("%b")
         p.append(f'<text x="{mx_x:.1f}" y="{ground_y + 14}" fill="{MUTED}" font-size="9.5" text-anchor="middle">{label}</text>')
+
+    # ---- viaduct + the Repo Express (recent public repos as carriages) ----
+    n_cars = 0
+    if SHOW_TRAIN:
+        rail_y = ground_y + RAIL_DROP
+        arches = "".join(f'<path d="M{ax},{rail_y + 12} q15,-8 30,0" />' for ax in range(0, W, 30))
+        p.append(f'<rect x="0" y="{rail_y + 2}" width="{W}" height="12" fill="#141b26"/>'
+                 f'<g fill="none" stroke="#0b1018" stroke-width="3">{arches}</g>'
+                 f'<rect x="0" y="{rail_y - 2}" width="{W}" height="2" fill="#8b949e"/>'
+                 + "".join(f'<rect x="{tx}" y="{rail_y}" width="6" height="3" fill="#2d333b"/>'
+                           for tx in range(0, W, 12)))
+        train, n_cars = repo_train.train_layer(repo_train.load(), rail_y, W, static=static)
+        p.append(train)
 
     # ---- stats footer ----
     sep_y = ground_y + STREET_H
@@ -509,7 +526,10 @@ def render(data, static=False):
     p.append(f'<text x="{PAD}" y="{ly}" font-size="13" fill="{GREEN}"><tspan font-weight="700">{total:,}</tspan>'
              f'<tspan fill="{MUTED}"> contributions  &#183;  </tspan>'
              f'<tspan font-weight="700">{n}</tspan><tspan fill="{MUTED}"> buildings  &#183;  </tspan>'
-             f'<tspan font-weight="700">{floors_total}</tspan><tspan fill="{MUTED}"> floors</tspan></text>')
+             f'<tspan font-weight="700">{floors_total}</tspan><tspan fill="{MUTED}"> floors</tspan>'
+             + (f'<tspan fill="{MUTED}">  &#183;  </tspan><tspan font-weight="700">{n_cars}</tspan>'
+                f'<tspan fill="{MUTED}"> repos on the express</tspan>' if n_cars else "")
+             + '</text>')
     p.append(f'<text x="{W - PAD}" y="{ly}" font-size="12" fill="{MUTED}" text-anchor="end">'
              f'{rng["start"]} &#8594; {rng["end"]}</text>')
     ly += 24
