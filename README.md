@@ -26,4 +26,13 @@
 <!-- departures: the latest commit to each recently active public repo, refreshed daily -->
 <img src="./departures.svg" width="860" alt="Departures board: the latest commit to each of my recently active public repos" />
 
+<br><br>
+
+<!-- trophy case: click to open; the summary count is rewritten daily by scripts/render_trophies_svg.py -->
+<details>
+<summary><!-- trophies:summary --><b>🏆 Trophy case</b> · 6 of 10 unlocked · click to open<!-- /trophies:summary --></summary>
+<br>
+<img src="./trophies.svg" width="860" alt="Trophy case: achievements earned from public GitHub activity, with progress toward locked ones" />
+</details>
+
 </div>
