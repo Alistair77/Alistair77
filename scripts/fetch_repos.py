@@ -16,7 +16,7 @@ import requests
 
 USERNAME = os.environ.get("GH_PROFILE_USER", "Alistair77")
 OUT = os.path.join(os.path.dirname(__file__), "..", "data", "repos.json")
-KEEP = ("name", "description", "language", "stargazers_count", "pushed_at", "html_url", "fork", "archived")
+KEEP = ("name", "description", "language", "stargazers_count", "pushed_at", "html_url", "fork", "archived", "private")
 
 
 def main():

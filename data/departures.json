@@ -1,0 +1,173 @@
+{
+  "username": "Alistair77",
+  "departures": [
+    {
+      "repo": "template-one",
+      "sha": "e539515afe8f0cb0cf223bada0efbc177115f96a",
+      "message": "Pune copy updates and new Krion logo (#18)",
+      "date": "2026-10-29T07:08:55Z",
+      "url": "https://github.com/Alistair77/template-one/commit/e539515afe8f0cb0cf223bada0efbc177115f96a"
+    },
+    {
+      "repo": "template-one",
+      "sha": "e9f84987bfbbdaa7c36bea81b99bc03f7369d771",
+      "message": "Pune copy updates and new Krion logo",
+      "date": "2026-10-29T07:08:35Z",
+      "url": "https://github.com/Alistair77/template-one/commit/e9f84987bfbbdaa7c36bea81b99bc03f7369d771"
+    },
+    {
+      "repo": "template-one",
+      "sha": "6641c95c0a780f5aa7c6b8468a6b909687eb1503",
+      "message": "One hero canvas, a real ticket, a panel per partner, and scroll-built cards (#17)",
+      "date": "2026-10-28T18:35:12Z",
+      "url": "https://github.com/Alistair77/template-one/commit/6641c95c0a780f5aa7c6b8468a6b909687eb1503"
+    },
+    {
+      "repo": "comos_Alistair_portfolio",
+      "sha": "e63fcfc434c8186756dc3b1c83c508de286d94dc",
+      "message": "Hero: larger, readable desktop type and planets; Contact opens LinkedIn",
+      "date": "2026-10-21T04:02:34Z",
+      "url": "https://github.com/Alistair77/comos_Alistair_portfolio/commit/e63fcfc434c8186756dc3b1c83c508de286d94dc"
+    },
+    {
+      "repo": "comos_Alistair_portfolio",
+      "sha": "7d37bb44df9f282bdec5f1b39b41f90c39fd307d",
+      "message": "Readable phone hero, bigger Live buttons, Contact planet scrolls to footer",
+      "date": "2026-10-21T03:45:23Z",
+      "url": "https://github.com/Alistair77/comos_Alistair_portfolio/commit/7d37bb44df9f282bdec5f1b39b41f90c39fd307d"
+    },
+    {
+      "repo": "comos_Alistair_portfolio",
+      "sha": "45f99b2f3f54ed8f45e79919116ffa04901c359d",
+      "message": "Observer: poem beside the title, Finder right below; tighter cards",
+      "date": "2026-10-20T17:41:34Z",
+      "url": "https://github.com/Alistair77/comos_Alistair_portfolio/commit/45f99b2f3f54ed8f45e79919116ffa04901c359d"
+    },
+    {
+      "repo": "FC-India",
+      "sha": "ac952014ace0c999736993ed426a05b5bcdae36c",
+      "message": "feat: full-bleed lead story hero, ad slot and Latest Topics row",
+      "date": "2026-10-20T08:28:08Z",
+      "url": "https://github.com/Alistair77/FC-India/commit/ac952014ace0c999736993ed426a05b5bcdae36c"
+    },
+    {
+      "repo": "bizaura",
+      "sha": "6e39e40b1bac64dd0c31604d6ddf0f6a08d9892b",
+      "message": "feat: blurred plasma wash behind the events hero",
+      "date": "2026-10-20T07:01:40Z",
+      "url": "https://github.com/Alistair77/bizaura/commit/6e39e40b1bac64dd0c31604d6ddf0f6a08d9892b"
+    },
+    {
+      "repo": "bizaura",
+      "sha": "fc7eacc4117e7f3a8dbfc1e85b8165f6cde0b10f",
+      "message": "feat: bold Cabinet Grotesk display and compact events hero",
+      "date": "2026-10-20T06:55:35Z",
+      "url": "https://github.com/Alistair77/bizaura/commit/fc7eacc4117e7f3a8dbfc1e85b8165f6cde0b10f"
+    },
+    {
+      "repo": "bizaura",
+      "sha": "d60e89ffacbfef805ae5fb88dd213f0daa20a05c",
+      "message": "feat: events site typefaces match the live Bizora Events hero",
+      "date": "2026-10-20T06:51:19Z",
+      "url": "https://github.com/Alistair77/bizaura/commit/d60e89ffacbfef805ae5fb88dd213f0daa20a05c"
+    },
+    {
+      "repo": "professional-portfolio-website",
+      "sha": "99125c707e7b523dc3bbc82886b9778971a2c9a6",
+      "message": "feat: About as System Settings, Stage Manager, phone apps that act like apps",
+      "date": "2026-10-19T22:53:36Z",
+      "url": "https://github.com/Alistair77/professional-portfolio-website/commit/99125c707e7b523dc3bbc82886b9778971a2c9a6"
+    },
+    {
+      "repo": "FC-India",
+      "sha": "ae0faeeed313f4470723ad75a11fdc672b2fd41c",
+      "message": "style: apply FC Branding 2026 typography, palette and logo",
+      "date": "2026-10-19T12:34:10Z",
+      "url": "https://github.com/Alistair77/FC-India/commit/ae0faeeed313f4470723ad75a11fdc672b2fd41c"
+    },
+    {
+      "repo": "FC-India",
+      "sha": "baba57d27f97a1f3f711b14fe36d66709e7cc836",
+      "message": "style: adjust hero aspect ratio and heights for better proportions",
+      "date": "2026-10-15T08:43:35Z",
+      "url": "https://github.com/Alistair77/FC-India/commit/baba57d27f97a1f3f711b14fe36d66709e7cc836"
+    },
+    {
+      "repo": "professional-portfolio-website",
+      "sha": "94be426f29bd10c30066ea18a816531af4a2a9bf",
+      "message": "feat: About as System Settings, Stage Manager strip for background windows",
+      "date": "2026-10-13T17:24:31Z",
+      "url": "https://github.com/Alistair77/professional-portfolio-website/commit/94be426f29bd10c30066ea18a816531af4a2a9bf"
+    },
+    {
+      "repo": "professional-portfolio-website",
+      "sha": "3b5a424fb1347669e35eb2c685c730cd6c15464d",
+      "message": "docs: add screenshots of the site to the README",
+      "date": "2026-10-13T09:19:00Z",
+      "url": "https://github.com/Alistair77/professional-portfolio-website/commit/3b5a424fb1347669e35eb2c685c730cd6c15464d"
+    },
+    {
+      "repo": "pylearnweb",
+      "sha": "b8440dbf8b7c3c512c57504abd640b8558e83bb4",
+      "message": "docs: README with screenshots of the live site",
+      "date": "2026-10-13T08:26:58Z",
+      "url": "https://github.com/Alistair77/pylearnweb/commit/b8440dbf8b7c3c512c57504abd640b8558e83bb4"
+    },
+    {
+      "repo": "zetsu-voice-agent",
+      "sha": "4cb9e94ad5e65556aa48dc96312a831744dfc680",
+      "message": "feat: the console's orb, and screenshots of every state in the README",
+      "date": "2026-10-13T08:02:36Z",
+      "url": "https://github.com/Alistair77/zetsu-voice-agent/commit/4cb9e94ad5e65556aa48dc96312a831744dfc680"
+    },
+    {
+      "repo": "pylearnweb",
+      "sha": "1486809780cb6e5c90000b0ca64c25b61e2e7a66",
+      "message": "feat: site-wide design pass (impeccable)",
+      "date": "2026-09-29T16:37:47Z",
+      "url": "https://github.com/Alistair77/pylearnweb/commit/1486809780cb6e5c90000b0ca64c25b61e2e7a66"
+    },
+    {
+      "repo": "pylearnweb",
+      "sha": "c1b1f475bd16e85ae4735b09112e7189b85ed2b9",
+      "message": "feat: chat answers Python and general questions from a built-in answer bank",
+      "date": "2026-09-27T04:45:19Z",
+      "url": "https://github.com/Alistair77/pylearnweb/commit/c1b1f475bd16e85ae4735b09112e7189b85ed2b9"
+    },
+    {
+      "repo": "zetsu-voice-agent",
+      "sha": "11e4659dab5db1f8298356353a23e3bec5bb6457",
+      "message": "docs: add running dashboard screenshots to README",
+      "date": "2026-09-23T13:04:49Z",
+      "url": "https://github.com/Alistair77/zetsu-voice-agent/commit/11e4659dab5db1f8298356353a23e3bec5bb6457"
+    },
+    {
+      "repo": "openjev",
+      "sha": "2620e0a8cbb9ef33533ea6bc23f6e117228f19a9",
+      "message": "Linux-safe paste seam (AppKit constant injectable)",
+      "date": "2026-09-23T05:38:51Z",
+      "url": "https://github.com/Alistair77/openjev/commit/2620e0a8cbb9ef33533ea6bc23f6e117228f19a9"
+    },
+    {
+      "repo": "openjev",
+      "sha": "338165a6c5358dc979c3fe033551d188f3c36490",
+      "message": "FluidVoice-style UX: Option-tap hotkey, clipboard paste typing, launch flash",
+      "date": "2026-09-23T05:36:28Z",
+      "url": "https://github.com/Alistair77/openjev/commit/338165a6c5358dc979c3fe033551d188f3c36490"
+    },
+    {
+      "repo": "openjev",
+      "sha": "f743f084c70722d3a66849b7408ce87b05a9c529",
+      "message": "FluidVoice latency/safety practices (original code): alpha-hide, change-only refresh, focus-aware typing, timings",
+      "date": "2026-09-23T05:05:41Z",
+      "url": "https://github.com/Alistair77/openjev/commit/f743f084c70722d3a66849b7408ce87b05a9c529"
+    },
+    {
+      "repo": "zetsu-voice-agent",
+      "sha": "94abb309615b3c52d44dacb591e65c8af41853e5",
+      "message": "feat: real work handed to Claude Code, every step through the spoken gate",
+      "date": "2026-09-18T03:27:50Z",
+      "url": "https://github.com/Alistair77/zetsu-voice-agent/commit/94abb309615b3c52d44dacb591e65c8af41853e5"
+    }
+  ]
+}

@@ -21,4 +21,9 @@
 <!-- activity: contribution skyline + the Repo Express, refreshed daily by the workflow -->
 <img src="./contrib-skyline.svg" width="860" alt="Contribution skyline (every streak a building, every day a floor) with recent repos riding a train along the street" />
 
+<br><br>
+
+<!-- departures: the latest commit to each recently active public repo, refreshed daily -->
+<img src="./departures.svg" width="860" alt="Departures board: the latest commit to each of my recently active public repos" />
+
 </div>
