@@ -72,7 +72,7 @@ def pick(data):
             continue
         if SKIP_FORKS and r.get("fork"):
             continue
-        if r.get("archived"):
+        if r.get("archived") or r.get("private"):   # public repos only, even if the data says otherwise
             continue
         if REQUIRE_DESCRIPTION and not (r.get("description") or "").strip():
             continue
