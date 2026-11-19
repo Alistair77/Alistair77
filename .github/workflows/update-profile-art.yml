@@ -49,11 +49,16 @@ jobs:
           GH_PROFILE_USER: ${{ github.repository_owner }}
         run: python scripts/render_departures_svg.py
 
+      - name: Render trophy case
+        env:
+          GH_PROFILE_USER: ${{ github.repository_owner }}
+        run: python scripts/render_trophies_svg.py
+
       - name: Commit if changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add contrib-skyline.svg data/contributions.json data/repos.json departures.svg data/departures.json
+          git add contrib-skyline.svg data/contributions.json data/repos.json departures.svg data/departures.json trophies.svg data/trophies.json README.md
           if git diff --cached --quiet; then
             echo "No change in contributions."
           else

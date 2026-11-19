@@ -30,6 +30,7 @@ scripts/
   fetch_repos.py             your recent public repos (no auth)
   fetch_departures.py        latest commits to those public repos (no auth)
   render_departures_svg.py   commits -> split-flap departures board + LED ticker
+  render_trophies_svg.py     activity -> click-to-open trophy case (+ README summary line)
   repo_train.py              recent repos -> "Repo Express" train (drawn inside the skyline)
   compose_about.py           portrait + info card -> one 860-wide about.svg
   requirements.txt           deps the daily workflow needs
@@ -71,13 +72,14 @@ GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_repos.py
 python scripts/render_skyline_svg.py          # -> contrib-skyline.svg (with the Repo Express)
 GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_departures.py
 python scripts/render_departures_svg.py       # -> departures.svg
+python scripts/render_trophies_svg.py         # -> trophies.svg, data/trophies.json
 
 # 4. README
 cp profile-README-template.md README.md       # then fill in name / tagline / links
 ```
 
 Create a **public repo named exactly your GitHub username**, drop in
-`reveal.svg`, `about.svg`, `contrib-skyline.svg`, `departures.svg`, `README.md`, the
+`reveal.svg`, `about.svg`, `contrib-skyline.svg`, `departures.svg`, `trophies.svg`, `README.md`, the
 `scripts/` folder, `data/contributions.json`, and `.github/`, then push.
 
 Finally: **Settings → Actions → General → Workflow permissions → Read and write**,
