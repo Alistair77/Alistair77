@@ -6,10 +6,11 @@
       "description": "Profile README",
       "language": "Python",
       "stargazers_count": 1,
-      "pushed_at": "2026-11-19T10:31:33Z",
+      "pushed_at": "2026-11-19T10:47:58Z",
       "html_url": "https://github.com/Alistair77/Alistair77",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "template-one",
@@ -19,7 +20,8 @@
       "pushed_at": "2026-10-29T07:20:55Z",
       "html_url": "https://github.com/Alistair77/template-one",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "comos_Alistair_portfolio",
@@ -29,7 +31,8 @@
       "pushed_at": "2026-10-21T04:02:57Z",
       "html_url": "https://github.com/Alistair77/comos_Alistair_portfolio",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "FC-India",
@@ -39,7 +42,8 @@
       "pushed_at": "2026-10-20T08:28:10Z",
       "html_url": "https://github.com/Alistair77/FC-India",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "bizaura",
@@ -49,7 +53,8 @@
       "pushed_at": "2026-10-20T07:01:42Z",
       "html_url": "https://github.com/Alistair77/bizaura",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "professional-portfolio-website",
@@ -59,7 +64,8 @@
       "pushed_at": "2026-10-20T03:16:17Z",
       "html_url": "https://github.com/Alistair77/professional-portfolio-website",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "pylearnweb",
@@ -69,7 +75,8 @@
       "pushed_at": "2026-10-13T08:27:02Z",
       "html_url": "https://github.com/Alistair77/pylearnweb",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "zetsu-voice-agent",
@@ -79,7 +86,8 @@
       "pushed_at": "2026-10-13T08:04:25Z",
       "html_url": "https://github.com/Alistair77/zetsu-voice-agent",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "openjev",
@@ -89,7 +97,8 @@
       "pushed_at": "2026-09-23T05:38:53Z",
       "html_url": "https://github.com/Alistair77/openjev",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "agent-orchestrator",
@@ -99,7 +108,8 @@
       "pushed_at": "2026-09-20T03:45:29Z",
       "html_url": "https://github.com/Alistair77/agent-orchestrator",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "Jericho-Agentic-Space-Station",
@@ -109,7 +119,8 @@
       "pushed_at": "2026-09-18T12:36:39Z",
       "html_url": "https://github.com/Alistair77/Jericho-Agentic-Space-Station",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "ragstar",
@@ -119,7 +130,8 @@
       "pushed_at": "2026-09-14T01:56:12Z",
       "html_url": "https://github.com/Alistair77/ragstar",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "semantic-cache",
@@ -129,7 +141,8 @@
       "pushed_at": "2026-09-10T02:28:48Z",
       "html_url": "https://github.com/Alistair77/semantic-cache",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "agent-evals",
@@ -139,7 +152,8 @@
       "pushed_at": "2026-08-08T20:00:26Z",
       "html_url": "https://github.com/Alistair77/agent-evals",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "pythonsphere",
@@ -149,7 +163,8 @@
       "pushed_at": "2026-07-31T08:02:15Z",
       "html_url": "https://github.com/Alistair77/pythonsphere",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "qretical-nomad-hero",
@@ -159,7 +174,8 @@
       "pushed_at": "2026-07-30T05:59:17Z",
       "html_url": "https://github.com/Alistair77/qretical-nomad-hero",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "Alistair",
@@ -169,7 +185,8 @@
       "pushed_at": "2026-07-28T11:24:22Z",
       "html_url": "https://github.com/Alistair77/Alistair",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "study_snipp",
@@ -179,7 +196,8 @@
       "pushed_at": "2026-07-01T06:00:04Z",
       "html_url": "https://github.com/Alistair77/study_snipp",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "portfolio_v1",
@@ -189,7 +207,8 @@
       "pushed_at": "2026-06-26T20:47:07Z",
       "html_url": "https://github.com/Alistair77/portfolio_v1",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "obisa_cv_impr",
@@ -199,7 +218,8 @@
       "pushed_at": "2026-06-26T20:42:18Z",
       "html_url": "https://github.com/Alistair77/obisa_cv_impr",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "health-weight-app-compose",
@@ -209,7 +229,8 @@
       "pushed_at": "2026-06-25T02:11:48Z",
       "html_url": "https://github.com/Alistair77/health-weight-app-compose",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "AAPL_stock_prediction-2024",
@@ -219,7 +240,8 @@
       "pushed_at": "2024-12-14T20:41:12Z",
       "html_url": "https://github.com/Alistair77/AAPL_stock_prediction-2024",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "To-do-list-1.0",
@@ -229,7 +251,8 @@
       "pushed_at": "2023-04-10T11:39:24Z",
       "html_url": "https://github.com/Alistair77/To-do-list-1.0",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "city-temp-webpg",
@@ -239,7 +262,8 @@
       "pushed_at": "2023-04-04T08:48:20Z",
       "html_url": "https://github.com/Alistair77/city-temp-webpg",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "Newsletter-2.0",
@@ -249,7 +273,8 @@
       "pushed_at": "2023-03-31T21:32:19Z",
       "html_url": "https://github.com/Alistair77/Newsletter-2.0",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "Newsletter-1.0",
@@ -259,7 +284,8 @@
       "pushed_at": "2023-03-30T15:00:57Z",
       "html_url": "https://github.com/Alistair77/Newsletter-1.0",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "drum-based-website",
@@ -269,7 +295,8 @@
       "pushed_at": "2023-03-04T17:57:11Z",
       "html_url": "https://github.com/Alistair77/drum-based-website",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     },
     {
       "name": "few-games",
@@ -279,7 +306,8 @@
       "pushed_at": "2023-03-04T17:43:14Z",
       "html_url": "https://github.com/Alistair77/few-games",
       "fork": false,
-      "archived": false
+      "archived": false,
+      "private": false
     }
   ]
 }
