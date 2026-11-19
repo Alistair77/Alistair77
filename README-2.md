@@ -28,7 +28,8 @@ scripts/
   fetch_contributions.py     scrapes your real contributions (no auth)
   render_skyline_svg.py      contributions -> animated skyline (streak = building, day = floor)
   fetch_repos.py             your recent public repos (no auth)
-  render_train_svg.py        recent repos -> "Repo Express" train, one carriage per repo
+  repo_train.py              recent repos -> "Repo Express" train (drawn inside the skyline)
+  compose_about.py           portrait + info card -> one 860-wide about.svg
   requirements.txt           deps the daily workflow needs
 .github/workflows/
   update-profile-art.yml     refreshes the graph every day, automatically
@@ -60,19 +61,19 @@ qlmanage -t -s 900 -o . avi-ascii.svg         # preview (macOS)
 # 2. info panel  (edit the ROWS + HOST at the top of the script first)
 python scripts/make_info_card.py              # -> info-card.svg
 python scripts/make_reveal_svg.py             # -> reveal.svg
+python scripts/compose_about.py               # -> about.svg (portrait + info card)
 
 # 3. contribution graph
 GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_contributions.py
-python scripts/render_skyline_svg.py          # -> contrib-skyline.svg
 GH_PROFILE_USER=YOUR_USERNAME python scripts/fetch_repos.py
-python scripts/render_train_svg.py            # -> repo-train.svg
+python scripts/render_skyline_svg.py          # -> contrib-skyline.svg (with the Repo Express)
 
 # 4. README
 cp profile-README-template.md README.md       # then fill in name / tagline / links
 ```
 
 Create a **public repo named exactly your GitHub username**, drop in
-`avi-ascii.svg`, `info-card.svg`, `contrib-skyline.svg`, `README.md`, the
+`reveal.svg`, `about.svg`, `contrib-skyline.svg`, `README.md`, the
 `scripts/` folder, `data/contributions.json`, and `.github/`, then push.
 
 Finally: **Settings → Actions → General → Workflow permissions → Read and write**,
@@ -86,6 +87,6 @@ After that it updates itself daily.
 | Punchier / lighter face     | `CONTRAST`, `GAMMA`, `WHITE_FLOOR` in `make_ascii_svg.py`; `clipLimit` in `prep_photo.py` |
 | Type faster / slower        | `ROW_DUR`, `STAGGER` in `make_ascii_svg.py` |
 | Change experience / stack   | `ROWS` and `HOST` in `make_info_card.py` |
-| Info panel too tall         | bump `H` in `make_info_card.py`, then re-match `width=` in the README |
+| Info panel too tall         | bump `H` in `make_info_card.py`, then re-run `compose_about.py` |
 
 Have fun — tag me if you ship one.
